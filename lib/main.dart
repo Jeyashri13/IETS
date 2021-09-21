@@ -32,9 +32,15 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xffffffff),
+      backgroundColor: const Color(0xffD4F2ED),
       appBar: AppBar(
-        title: Center(child: const Text('IETS')),
+        title: Center(child: const Text('EITS')),
+        backgroundColor: Colors.blueAccent,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            bottom: Radius.circular(35),
+          ),
+        ),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -48,8 +54,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   Color(0xFFE0A4F7),
                 ],
                 btnText: 'Section A',
-                shadowColor: Color(0xFFE3E0E6),
+                shadowColor: Color(0xFFDAC1D5),
                 btnText2: 'Daily IETS Monitoring',
+                imagePath: 'assets/images/monitoring.png',
               ),
             ),
           ),
@@ -61,8 +68,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   Color(0xFFA5D6F7),
                 ],
                 btnText: 'Section B',
-                shadowColor: Color(0xFFE3E0E6),
+                shadowColor: Color(0xFFC1DAD9),
                 btnText2: 'Daily Internal Results',
+                imagePath: 'assets/images/daily.png',
               ),
             ),
           ),
@@ -74,8 +82,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   Color(0xFFFA96A8),
                 ],
                 btnText: 'Section C',
-                shadowColor: Color(0xFFE3E0E6),
-                btnText2: 'Monthly External Test Results\n(Final Discharge)',
+                shadowColor: Color(0xFFFBCDD3),
+                btnText2: 'Monthly External Test\nResults\n(Final Discharge)',
+                imagePath: 'assets/images/monthly.png',
               ),
             ),
           ),
@@ -92,6 +101,7 @@ class CustomButton extends StatelessWidget {
     required this.colorList,
     required this.shadowColor,
     required this.btnText2,
+    required this.imagePath,
     // required this.icon,
     // required this.navigator,
   }) : super(key: key);
@@ -99,6 +109,7 @@ class CustomButton extends StatelessWidget {
   final String btnText;
   final String btnText2;
   final Color shadowColor;
+  final String imagePath;
   // final icon;
   // final navigator;
 
@@ -107,30 +118,46 @@ class CustomButton extends StatelessWidget {
     return Container(
       // height: 50.0,
       width: 300.0,
-      decoration: BoxDecoration(boxShadow: [
-        BoxShadow(
-            offset: Offset(0.0, 20.0), blurRadius: 10.0, color: shadowColor)
-      ], color: Colors.white, borderRadius: BorderRadius.circular(22.0)),
+      decoration: BoxDecoration(
+          // image: Image.asset('assets/images/monitoring.png'),
+          boxShadow: [
+            BoxShadow(
+                offset: Offset(0.0, 20.0), blurRadius: 10.0, color: shadowColor)
+          ], color: Colors.white, borderRadius: BorderRadius.circular(22.0)),
       child: Container(
         padding: const EdgeInsets.only(left: 12.0, top: 12.0),
         height: 150.0,
         width: 300.0,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              btnText,
-              style: const TextStyle(fontSize: 20.0, color: Colors.white),
-              textAlign: TextAlign.left,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  btnText,
+                  style: const TextStyle(fontSize: 20.0, color: Colors.white),
+                  textAlign: TextAlign.left,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 9.0),
+                  child: Text(
+                    btnText2,
+                    style: const TextStyle(fontSize: 13.0, color: Colors.white),
+                    textAlign: TextAlign.left,
+                  ),
+                ),
+              ],
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 9.0),
-              child: Text(
-                btnText2,
-                style: const TextStyle(fontSize: 13.0, color: Colors.white),
-                textAlign: TextAlign.left,
+              padding: const EdgeInsets.only(right: 8.0),
+              child: Container(
+                width: 120,
+                height: 120,
+                decoration: BoxDecoration(
+                    image: DecorationImage(image: AssetImage(imagePath))),
               ),
-            ),
+            )
           ],
         ),
         decoration: BoxDecoration(
