@@ -11,105 +11,139 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'IETS',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
+        fontFamily: "Montserrat",
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'IETS'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
+  const MyHomePage({Key? key, required String title}) : super(key: key);
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xffffffff),
+      appBar: AppBar(
+        title: Center(child: const Text('IETS')),
+      ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: <Widget>[
+          // ignore: avoid_unnecessary_containers
+          Container(
+            child: const Center(
+              child: CustomButton(
+                colorList: [
+                  Color(0xFFAF30DE),
+                  Color(0xFFE0A4F7),
+                ],
+                btnText: 'Section A',
+                shadowColor: Color(0xFFE3E0E6),
+                btnText2: 'Daily IETS Monitoring',
+              ),
+            ),
+          ),
+          Container(
+            child: const Center(
+              child: CustomButton(
+                colorList: [
+                  Color(0xFF439AD4),
+                  Color(0xFFA5D6F7),
+                ],
+                btnText: 'Section B',
+                shadowColor: Color(0xFFE3E0E6),
+                btnText2: 'Daily Internal Results',
+              ),
+            ),
+          ),
+          Container(
+            child: const Center(
+              child: CustomButton(
+                colorList: [
+                  Color(0xFFEB294C),
+                  Color(0xFFFA96A8),
+                ],
+                btnText: 'Section C',
+                shadowColor: Color(0xFFE3E0E6),
+                btnText2: 'Monthly External Test Results\n(Final Discharge)',
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
+}
+
+class CustomButton extends StatelessWidget {
+  const CustomButton({
+    Key? key,
+    required this.btnText,
+    required this.colorList,
+    required this.shadowColor,
+    required this.btnText2,
+    // required this.icon,
+    // required this.navigator,
+  }) : super(key: key);
+  final List<Color> colorList;
+  final String btnText;
+  final String btnText2;
+  final Color shadowColor;
+  // final icon;
+  // final navigator;
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
+    return Container(
+      // height: 50.0,
+      width: 300.0,
+      decoration: BoxDecoration(boxShadow: [
+        BoxShadow(
+            offset: Offset(0.0, 20.0), blurRadius: 10.0, color: shadowColor)
+      ], color: Colors.white, borderRadius: BorderRadius.circular(22.0)),
+      child: Container(
+        padding: const EdgeInsets.only(left: 12.0, top: 12.0),
+        height: 150.0,
+        width: 300.0,
         child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
             Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+              btnText,
+              style: const TextStyle(fontSize: 20.0, color: Colors.white),
+              textAlign: TextAlign.left,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 9.0),
+              child: Text(
+                btnText2,
+                style: const TextStyle(fontSize: 13.0, color: Colors.white),
+                textAlign: TextAlign.left,
+              ),
             ),
           ],
         ),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(colors: colorList),
+          color: Colors.blueAccent,
+          borderRadius: const BorderRadius.only(
+            bottomLeft: Radius.circular(15.0),
+            topLeft: Radius.circular(10.0),
+            bottomRight: Radius.circular(15.0),
+            topRight: Radius.circular(10.0),
+          ),
+        ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
