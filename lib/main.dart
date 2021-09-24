@@ -1,4 +1,9 @@
+// kikkikini
+//jbugvechesu
 import 'package:flutter/material.dart';
+import 'package:iets/SectionB/sectionB.dart';
+import 'package:iets/SectionA/sectionA.dart';
+import 'package:iets/SectionC/sectionC.dart';
 
 void main() {
   runApp(const MyApp());
@@ -34,8 +39,13 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       backgroundColor: const Color(0xffD4F2ED),
       appBar: AppBar(
-        title: Center(child: const Text('EITS')),
+        title: const Center(
+            child: Text(
+          'EITS',
+          style: TextStyle(fontFamily: "Montserrat"),
+        )),
         backgroundColor: Colors.blueAccent,
+        elevation: 10,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
             bottom: Radius.circular(35),
@@ -57,6 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 shadowColor: Color(0xFFDAC1D5),
                 btnText2: 'Daily IETS Monitoring',
                 imagePath: 'assets/images/monitoring.png',
+                navigator: Section_A(),
               ),
             ),
           ),
@@ -71,6 +82,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 shadowColor: Color(0xFFC1DAD9),
                 btnText2: 'Daily Internal Results',
                 imagePath: 'assets/images/daily.png',
+                navigator: Section_B(),
               ),
             ),
           ),
@@ -85,6 +97,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 shadowColor: Color(0xFFFBCDD3),
                 btnText2: 'Monthly External Test\nResults\n(Final Discharge)',
                 imagePath: 'assets/images/monthly.png',
+                navigator: Section_C(),
               ),
             ),
           ),
@@ -102,6 +115,7 @@ class CustomButton extends StatelessWidget {
     required this.shadowColor,
     required this.btnText2,
     required this.imagePath,
+    required this.navigator,
     // required this.icon,
     // required this.navigator,
   }) : super(key: key);
@@ -110,24 +124,29 @@ class CustomButton extends StatelessWidget {
   final String btnText2;
   final Color shadowColor;
   final String imagePath;
+  final navigator;
   // final icon;
   // final navigator;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    double width = MediaQuery.of(context).size.width;
+    return InkWell(
+      onTap: () {
+        // player.play('audio/button_sound.mp3');
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => navigator),
+        );
+      },
       // height: 50.0,
-      width: 300.0,
-      decoration: BoxDecoration(
-          // image: Image.asset('assets/images/monitoring.png'),
-          boxShadow: [
-            BoxShadow(
-                offset: Offset(0.0, 20.0), blurRadius: 10.0, color: shadowColor)
-          ], color: Colors.white, borderRadius: BorderRadius.circular(22.0)),
+
+      // width: 300.0,
       child: Container(
         padding: const EdgeInsets.only(left: 12.0, top: 12.0),
-        height: 150.0,
-        width: 300.0,
+        height: MediaQuery.of(context).size.height * 0.2,
+        width: MediaQuery.of(context).size.width * 0.85,
+        // width: 300.0,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -136,14 +155,20 @@ class CustomButton extends StatelessWidget {
               children: [
                 Text(
                   btnText,
-                  style: const TextStyle(fontSize: 20.0, color: Colors.white),
+                  style: const TextStyle(
+                      fontSize: 25.0,
+                      color: Colors.white,
+                      fontFamily: "Montserrat"),
                   textAlign: TextAlign.left,
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 9.0),
                   child: Text(
                     btnText2,
-                    style: const TextStyle(fontSize: 13.0, color: Colors.white),
+                    style: const TextStyle(
+                        fontSize: 13.0,
+                        color: Colors.white,
+                        fontFamily: "Montserrat"),
                     textAlign: TextAlign.left,
                   ),
                 ),
@@ -161,6 +186,10 @@ class CustomButton extends StatelessWidget {
           ],
         ),
         decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+                offset: Offset(0.0, 20.0), blurRadius: 10.0, color: shadowColor)
+          ],
           gradient: LinearGradient(colors: colorList),
           color: Colors.blueAccent,
           borderRadius: const BorderRadius.only(
